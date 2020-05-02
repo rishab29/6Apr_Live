@@ -1,5 +1,7 @@
 package Lecture13;
 
+import java.util.Scanner;
+
 public class cbp {
 
 	public static void main(String[] args) {
