@@ -2,9 +2,9 @@ package Lecture16;
 
 public class QueueUsingArrays {
 
-	private int[] data;
-	private int front;
-	private int size;
+	protected int[] data;
+	protected int front;
+	protected int size;
 	
 	public QueueUsingArrays(int capacity) {
 		// TODO Auto-generated constructor stub

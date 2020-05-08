@@ -2,10 +2,10 @@ package Lecture15;
 
 public class StackUsingArrays {
 
-	private int[] data;
-	private int tos;
+	protected int[] data;
+	protected int tos;
 
-	public StackUsingArrays(int capacity) {
+	protected StackUsingArrays(int capacity) {
 		// TODO Auto-generated constructor stub
 		this.data = new int[capacity];
 		this.tos = -1;
