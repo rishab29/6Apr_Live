@@ -43,6 +43,8 @@ public class BTclient {
 		System.out.println("**************");
 		tree.leftView();
 		
+		System.out.println(tree.isBst());
+		
 //		
 
 	}

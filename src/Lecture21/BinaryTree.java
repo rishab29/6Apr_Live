@@ -3,6 +3,7 @@ package Lecture21;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+
 public class BinaryTree {
 
 	private class Node {
@@ -418,5 +419,26 @@ public class BinaryTree {
 		leftView(node.right, level+1);
 		
 		
+	}
+	
+	
+	public boolean isBst() {
+		return this.isBst(this.root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+	}
+
+	private boolean isBst(Node node, int min, int max) {
+		if (node == null) {
+			return true;
+		}
+
+		if (node.data < min || node.data > max) {
+			return false;
+		} else if (!this.isBst(node.left, min, node.data)) {
+			return false;
+		} else if (!this.isBst(node.right, node.data, max)) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 }
