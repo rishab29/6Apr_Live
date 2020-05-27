@@ -8,6 +8,7 @@ public class SubArraysumZeroMaxLen {
 		// TODO Auto-generated method stub
 		int[] arr= {3,-1,1,2,5,-5,-2};
 		System.out.println(maxlen(arr));
+		
 
 	}
 	
