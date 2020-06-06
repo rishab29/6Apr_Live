@@ -1,5 +1,6 @@
 package Lecture29and30;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -179,6 +180,145 @@ public class Graphs {
 		}
 
 		return false;
+	}
+	
+	public void bft() {
+		HashMap<Vertex, Boolean> visited=new HashMap<>();
+		Collection<Vertex> vtces=this.vtces.values();
+		Queue<Vertex> q=new LinkedList<>();
+		for(Vertex vtx:vtces) {
+			if(!visited.containsKey(vtx)) {
+				q.add(vtx);
+			}
+			while (!q.isEmpty()) {
+				Vertex rv = q.remove();
+				if (!visited.containsKey(rv)) {
+					visited.put(rv, true);
+					System.out.print(rv.name+" ");
+					Set<Vertex> nbrs = rv.nbrs.keySet();
+					for (Vertex nbr : nbrs) {
+						if (!visited.containsKey(nbr)) {
+							q.add(nbr);
+						}
+					}
+				}
+			}
+			
+		}
+	}
+	
+	
+	public void dft() {
+		HashMap<Vertex, Boolean> visited=new HashMap<>();
+		Collection<Vertex> vtces=this.vtces.values();
+		LinkedList<Vertex> stack=new LinkedList<>();
+		for(Vertex vtx:vtces) {
+			if(!visited.containsKey(vtx)) {
+				stack.addFirst(vtx);
+			}
+			while (!stack.isEmpty()) {
+				Vertex rv = stack.removeFirst();
+				if (!visited.containsKey(rv)) {
+					visited.put(rv, true);
+					System.out.print(rv.name+" ");
+					Set<Vertex> nbrs = rv.nbrs.keySet();
+					for (Vertex nbr : nbrs) {
+						if (!visited.containsKey(nbr)) {
+							stack.addFirst(nbr);
+						}
+					}
+				}
+			}
+			
+		}
+	}
+	
+	public boolean isConnected() {
+		HashMap<Vertex, Boolean> visited=new HashMap<>();
+		LinkedList<Vertex> q=new LinkedList<>();
+	    Vertex vtx=(Vertex)(this.vtces.values().toArray()[0]);
+	    q.add(vtx);
+	    
+	    while (!q.isEmpty()) {
+			Vertex rv = q.remove();
+			if (!visited.containsKey(rv)) {
+				visited.put(rv, true);
+				//System.out.print(rv.name+" ");
+				Set<Vertex> nbrs = rv.nbrs.keySet();
+				for (Vertex nbr : nbrs) {
+					if (!visited.containsKey(nbr)) {
+						q.add(nbr);
+					}
+				}
+			}
+		}
+	    
+	    return this.vtces.size()==visited.size();		
+	}
+	
+	public ArrayList<ArrayList<String>> getCC(){
+		HashMap<Vertex, Boolean> visited=new HashMap<>();
+		Collection<Vertex> vtces=this.vtces.values();
+		Queue<Vertex> q=new LinkedList<>();
+		ArrayList<ArrayList<String>> ans=new ArrayList<>();
+		for(Vertex vtx:vtces) {
+			if(!visited.containsKey(vtx)) {
+				q.add(vtx);
+			}
+			ArrayList<String> cc=new ArrayList<>();
+			while (!q.isEmpty()) {
+				Vertex rv = q.remove();
+				if (!visited.containsKey(rv)) {
+					visited.put(rv, true);
+					cc.add(rv.name);
+					Set<Vertex> nbrs = rv.nbrs.keySet();
+					for (Vertex nbr : nbrs) {
+						if (!visited.containsKey(nbr)) {
+							q.add(nbr);
+						}
+					}
+				}
+			}
+			
+			if(cc.size()!=0) {
+				ans.add(cc);
+			}
+			
+		}
+		
+		return ans;
+	}
+	
+	public void djikstra(String source) {
+		int[] dis=new int[this.vtces.size()];
+		for(int i=0;i<dis.length;i++) {
+			dis[i]=Integer.MAX_VALUE;
+		}
+		
+		Vertex v=this.vtces.get(source);
+		dis[source.charAt(0)-65]=0;
+		Queue<String> q=new LinkedList<>();
+		q.add(source);
+		
+		while(!q.isEmpty()) {
+			String str=q.remove();
+			Vertex vtx=this.vtces.get(str);
+			Set<Vertex> nbrs=vtx.nbrs.keySet();
+			
+			for(Vertex nbr:nbrs) {
+				int oc=dis[nbr.name.charAt(0)-65];
+				int nc=dis[vtx.name.charAt(0)-65]+vtx.nbrs.get(nbr);
+				if(nc<oc) {
+					dis[nbr.name.charAt(0)-65]=nc;
+					q.add(nbr.name);
+				}
+			}
+		}
+		
+		
+		for(int i=0;i<dis.length;i++) {
+			System.out.print(dis[i]+" ");
+		}
 	}
 
 }
