@@ -7,11 +7,14 @@ public class Heaps<T extends Comparable<T>> {
 	private ArrayList<T> data;
 	boolean isMin;
 	
-	Heaps(boolean isMin){
+	public Heaps(boolean isMin){
 		this.data=new ArrayList<>();
 		this.isMin=isMin;
 	}
 	
+	public boolean isEmpty() {
+		return this.data.size()==0;
+	}
 	Heaps(T[] arr,boolean isMin){
 		this.data=new ArrayList<>();
 		this.isMin=isMin;
